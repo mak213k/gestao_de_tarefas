@@ -1,86 +1,46 @@
-{
-  "nbformat": 4,
-  "nbformat_minor": 0,
-  "metadata": {
-    "colab": {
-      "provenance": [],
-      "authorship_tag": "ABX9TyPwaylWdpSbHuJVt36aGH2s",
-      "include_colab_link": true
-    },
-    "kernelspec": {
-      "name": "python3",
-      "display_name": "Python 3"
-    },
-    "language_info": {
-      "name": "python"
-    }
-  },
-  "cells": [
-    {
-      "cell_type": "markdown",
-      "metadata": {
-        "id": "view-in-github",
-        "colab_type": "text"
-      },
-      "source": [
-        "<a href=\"https://colab.research.google.com/github/mak213k/gestao_de_tarefas/blob/main/Meu_primeiro_projeto\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
-      ]
-    },
-    {
-      "cell_type": "code",
-      "execution_count": null,
-      "metadata": {
-        "id": "6I9NaMTIJfyp"
-      },
-      "outputs": [],
-      "source": [
-        "tarefas = []\n",
-        "def mostrar_menu():\n",
-        "    print(\"\\n=== Gestão de Tarefas ===\")\n",
-        "    print(\"1. Adicionar tarefa\")\n",
-        "    print(\"2. Listar tarefas\")\n",
-        "    print(\"3. Remover tarefa\")\n",
-        "    print(\"4. Sair\")\n",
-        "    escolha = input(\"Escolha uma opção: \")\n",
-        "    return escolha\n",
-        "def adicionar_tarefa():\n",
-        "    tarefa = input(\"Digite a tarefa: \")\n",
-        "    tarefas.append(tarefa)\n",
-        "    print(\"Tarefa adicionada!\")\n",
-        "def listar_tarefas():\n",
-        "    if len(tarefas) == 0:\n",
-        "        print(\"Não há tarefas na lista.\")\n",
-        "    else:\n",
-        "        print(\"Tarefas:\")\n",
-        "        for i in range(len(tarefas)):\n",
-        "            print(f\"{i+1}. {tarefas[i]}\")\n",
-        "def remover_tarefa():\n",
-        "    listar_tarefas()\n",
-        "    if len(tarefas) > 0:\n",
-        "        num = input(\"Digite o número da tarefa que quer remover: \")\n",
-        "        if num.isdigit():\n",
-        "            num = int(num)\n",
-        "            if 1 <= num <= len(tarefas):\n",
-        "                removida = tarefas.pop(num - 1)\n",
-        "                print(f\"Tarefa '{removida}' removida!\")\n",
-        "            else:\n",
-        "                print(\"Número inválido.\")\n",
-        "        else:\n",
-        "            print(\"Por favor, digite um número válido.\")\n",
-        "while True:\n",
-        "    opcao = mostrar_menu()\n",
-        "    if opcao == '1':\n",
-        "        adicionar_tarefa()\n",
-        "    elif opcao == '2':\n",
-        "        listar_tarefas()\n",
-        "    elif opcao == '3':\n",
-        "        remover_tarefa()\n",
-        "    elif opcao == '4':\n",
-        "        print(\"Até mais!\")\n",
-        "        break\n",
-        "    else:\n",
-        "        print(\"Opção inválida, tente novamente.\")"
-      ]
-    }
-  ]
-}
+tarefas = []
+def mostrar_menu():
+    print("\n=== Gestão de Tarefas ===")
+    print("1. Adicionar tarefa")
+    print("2. Listar tarefas")
+    print("3. Remover tarefa")
+    print("4. Sair")
+    escolha = input("Escolha uma opção: ")
+    return escolha
+def adicionar_tarefa():
+    tarefa = input("Digite a tarefa: ")
+    tarefas.append(tarefa)
+    print("Tarefa adicionada!")
+def listar_tarefas():
+    if len(tarefas) == 0:
+        print("Não há tarefas na lista.")
+    else:
+        print("Tarefas:")
+        for i in range(len(tarefas)):
+            print(f"{i+1}. {tarefas[i]}")
+def remover_tarefa():
+    listar_tarefas()
+    if len(tarefas) > 0:
+        num = input("Digite o número da tarefa que quer remover: ")
+        if num.isdigit():
+            num = int(num)
+            if 1 <= num <= len(tarefas):
+                removida = tarefas.pop(num - 1)
+                print(f"Tarefa '{removida}' removida!")
+            else:
+                print("Número inválido.")
+        else:
+            print("Por favor, digite um número válido.")
+while True:
+    opcao = mostrar_menu()
+    if opcao == '1':
+        adicionar_tarefa()
+    elif opcao == '2':
+        listar_tarefas()
+    elif opcao == '3':
+        remover_tarefa()
+    elif opcao == '4':
+        print("Até mais!")
+        break
+    else:
+        print("Opção inválida, tente novamente.")
