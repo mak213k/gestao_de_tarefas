@@ -1,0 +1,138 @@
+import json
+from datetime import datetime
+
+ARQUIVO = "tarefas.json"
+tarefas = []
+
+def carregar_tarefas():
+    """Carrega as tarefas do arquivo JSON, se existir."""
+    global tarefas
+    try:
+        with open(ARQUIVO, "r", encoding="utf-8") as f:
+            tarefas = json.load(f)
+    except FileNotFoundError:
+        tarefas = []
+
+def salvar_tarefas():
+    """Salva a lista de tarefas atual no arquivo JSON."""
+    with open(ARQUIVO, "w", encoding="utf-8") as f:
+        json.dump(tarefas, f, indent=4, ensure_ascii=False)
+
+def mostrar_menu():
+    """Exibe o menu de opções e retorna a escolha do usuário."""
+    print("\n=== Sistema de Gestão de Tarefas - Café 3 Corações ===")
+    print("1. Adicionar tarefa")
+    print("2. Listar tarefas")
+    print("3. Marcar tarefa como concluída")
+    print("4. Remover tarefa")
+    print("5. Gerar relatório")
+    print("6. Sair")
+    return input("Escolha uma opção: ")
+
+def adicionar_tarefa():
+    """Adiciona uma nova tarefa à lista."""
+    nome = input("Descrição da tarefa: ")
+    categoria = input("Categoria (ex: Estoque, Limpeza, Vendas...): ")
+    prazo = input("Prazo (ex: 25/10/2025 ou deixe vazio): ")
+    tarefa = {
+        "nome": nome,
+        "categoria": categoria,
+        "prazo": prazo if prazo else "Sem prazo",
+        "status": "Pendente",
+        "criado_em": datetime.now().strftime("%d/%m/%Y %H:%M")
+    }
+    tarefas.append(tarefa)
+    salvar_tarefas()
+    print(f"Tarefa '{nome}' adicionada com sucesso!")
+
+def listar_tarefas():
+    """Lista todas as tarefas cadastradas."""
+    if not tarefas:
+        print("Nenhuma tarefa cadastrada.")
+    else:
+        print("\n--- Lista de Tarefas ---")
+        for i, t in enumerate(tarefas, 1):
+            print(f"{i}. [{t['status']}] {t['nome']} | **{t['categoria']}** | Prazo: {t['prazo']} | Criado em: {t['criado_em']}")
+
+def marcar_concluida():
+    """Marca uma tarefa como concluída pelo seu número na lista."""
+    listar_tarefas()
+    if tarefas:
+        try:
+            num = int(input("Número da tarefa concluída: "))
+            # Verifica se o número está no intervalo correto
+            if 0 < num <= len(tarefas):
+                tarefas[num-1]["status"] = "Concluída"
+                salvar_tarefas()
+                print(f"Tarefa '{tarefas[num-1]['nome']}' marcada como concluída!")
+            else:
+                print("Número inválido. O número deve estar na lista.")
+        except ValueError:
+            print("Entrada inválida. Por favor, digite um número.")
+
+def remover_tarefa():
+    """Remove uma tarefa da lista pelo seu número."""
+    listar_tarefas()
+    if tarefas:
+        try:
+            num = int(input("Número da tarefa para remover: "))
+            # Verifica se o número está no intervalo correto
+            if 0 < num <= len(tarefas):
+                removida = tarefas.pop(num-1)
+                salvar_tarefas()
+                print(f"Tarefa '{removida['nome']}' removida.")
+            else:
+                print("Número inválido. O número deve estar na lista.")
+        except ValueError:
+            print("Entrada inválida. Por favor, digite um número.")
+
+def gerar_relatorio():
+    """Gera e exibe um relatório resumido das tarefas."""
+    print("\n=== Relatório Diário ===")
+    total = len(tarefas)
+    concluidas = len([t for t in tarefas if t["status"] == "Concluída"])
+    pendentes = total - concluidas
+    
+    print(f"Total de tarefas: {total}")
+    print(f"✅ Concluídas: {concluidas}")
+    print(f"⏳ Pendentes: {pendentes}")
+    
+    # Adicionando um resumo por categoria
+    categorias = {}
+    for t in tarefas:
+        cat = t['categoria']
+        status = t['status']
+        if cat not in categorias:
+            categorias[cat] = {"Total": 0, "Concluídas": 0, "Pendentes": 0}
+        categorias[cat]["Total"] += 1
+        if status == "Concluída":
+            categorias[cat]["Concluídas"] += 1
+        else:
+            categorias[cat]["Pendentes"] += 1
+            
+    print("\n--- Por Categoria ---")
+    for cat, dados in categorias.items():
+        print(f"**{cat}**: Total={dados['Total']} | Concluídas={dados['Concluídas']} | Pendentes={dados['Pendentes']}")
+        
+    print("=========================")
+
+# execução
+if __name__ == "__main__":
+    carregar_tarefas()
+    while True:
+        opcao = mostrar_menu()
+        if opcao == '1':
+            adicionar_tarefa()
+        elif opcao == '2':
+            listar_tarefas()
+        elif opcao == '3':
+            marcar_concluida()
+        elif opcao == '4':
+            remover_tarefa()
+        elif opcao == '5':
+            gerar_relatorio()
+        elif opcao == '6':
+            print("Encerrando... Até logo, colaborador do Coração💚❤️ 💛")
+            break
+        else:
+            print("Opção inválida, tente novamente.")
