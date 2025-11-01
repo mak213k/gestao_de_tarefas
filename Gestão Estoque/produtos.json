@@ -1,0 +1,62 @@
+[
+    {
+        "id": 1,
+        "nome": "Agua",
+        "quantidade": 4
+    },
+    {
+        "id": 2,
+        "nome": "Celular",
+        "quantidade": 5
+    },
+    {
+        "id": 3,
+        "nome": "relogio",
+        "quantidade": 1
+    },
+    {
+        "id": 4,
+        "nome": "copo",
+        "quantidade": 2
+    },
+    {
+        "id": 5,
+        "nome": "Coca cola",
+        "quantidade": 6
+    },
+    {
+        "id": 6,
+        "nome": "memoria",
+        "quantidade": 5
+    },
+    {
+        "id": 7,
+        "nome": "Cafe",
+        "quantidade": 2
+    },
+    {
+        "id": 8,
+        "nome": "suco",
+        "quantidade": 3
+    },
+    {
+        "id": 9,
+        "nome": "joia",
+        "quantidade": 1
+    },
+    {
+        "id": 10,
+        "nome": "Leite",
+        "quantidade": 4
+    },
+    {
+        "id": 11,
+        "nome": "leite",
+        "quantidade": 0
+    },
+    {
+        "id": 12,
+        "nome": "gvgu",
+        "quantidade": 2
+    }
+]
